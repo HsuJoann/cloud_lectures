@@ -12,25 +12,25 @@ from mpl_toolkits.basemap import Basemap
 
 # Classes to hold the data
 class EarthQuake:
-  def __init__(self, row):
-    # Parse earthquake data from USGS
-    self.timestamp = row[0]
-    self.lat = float(row[1])
-    self.lon = float(row[2])
-    try:
-      self.magnitude = float(row[4])
-    except ValueError:
-      self.magnitude = 0
+      def __init__(self, row):
+        # Parse earthquake data from USGS
+        self.timestamp = row[0]
+        self.lat = float(row[1])
+        self.lon = float(row[2])
+        try:
+          self.magnitude = float(row[4])
+        except ValueError:
+          self.magnitude = 0
     
 def get_earthquake_data(url):
-  # Read CSV earthquake data from USGS
-  response = urlopen(url)
-  csvio = StringIO(response.read().decode('utf-8'))
-  reader = csv.reader(csvio)
-  header = next(reader)
-  quakes = [EarthQuake(row) for row in reader]
-  quakes = [q for q in quakes if q.magnitude > 0]
-  return quakes
+    # Read CSV earthquake data from USGS
+    response = urlopen(url)
+    csvio = StringIO(response.read().decode('utf-8'))
+    reader = csv.reader(csvio)
+    header = next(reader)
+    quakes = [EarthQuake(row) for row in reader]
+    quakes = [q for q in quakes if q.magnitude > 0]
+    return quakes
 
 
 # control marker color and size based on magnitude
